@@ -7,14 +7,13 @@ from pathlib import Path
 import props_MD, props_DSMC, plots
 from props_DSMC import load_DSMC
 from props_MD import load_MD
-from props_NCCR import load_NCCR
+from props_NCCR import load_NSF_NCCR
 from plots import plot_y, plot_Mkn, plot_Mkn1, str_cons_fig
 
 # Reload modules to reflect any changes
 importlib.reload(props_MD)
 importlib.reload(props_DSMC)
 importlib.reload(plots)
-
 
 # from rename import rename_files
 # rename_files(r'E:\Works\Couette\16_09_2025_paper_try_2\MD_DSMC_comparision\py_post_processing\data\MD')
@@ -23,16 +22,16 @@ importlib.reload(plots)
 
 #%% 
 # work/plot directories
-md_dir = Path(__file__).parent.parent / "data"/ "MD"
+md_dir = Path(__file__).parent.parent / "data"/ "MD-01-03-2026"
 dsmc_dir = Path(__file__).parent.parent / "data"/ "DSMC"
 nccr_dir = Path(__file__).parent.parent / "data"/ "NCCR"
-os.makedirs('../plots', exist_ok=True)
-os.makedirs('../plots/vs_y', exist_ok=True)
-os.makedirs('../plots/M_var', exist_ok=True)
-os.makedirs('../plots/Kn_var', exist_ok=True)
-os.makedirs('../plots/vs_y/pickles', exist_ok=True)
-os.makedirs('../plots/M_var/pickles', exist_ok=True)
-os.makedirs('../plots/Kn_var/pickles', exist_ok=True)
+os.makedirs('plots', exist_ok=True)
+os.makedirs('plots/vs_y', exist_ok=True)
+os.makedirs('plots/M_var', exist_ok=True)
+os.makedirs('plots/Kn_var', exist_ok=True)
+os.makedirs('plots/vs_y/pickles', exist_ok=True)
+os.makedirs('plots/M_var/pickles', exist_ok=True)
+os.makedirs('plots/Kn_var/pickles', exist_ok=True)
 
 #%% load data
 MD_channel_width = 500E-10               # channel width in m
@@ -42,8 +41,8 @@ md_data = load_MD(MD_channel_width, MD_bin_area, MD_dia,md_dir)
 print("MD data loaded successfully.")
 dsmc_data = load_DSMC(dsmc_dir)
 print("DSMC data loaded successfully.")
-nccr_data, nsf_data = load_NCCR(nccr_dir)
-print("NCCR data loaded successfully.")
+nccr_data, nsf_data = load_NSF_NCCR(nccr_dir)
+print("NSF and NCCR data loaded successfully.")
 
 # print(dsmc_data.keys())
 # print(md_data.keys())

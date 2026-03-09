@@ -71,9 +71,3 @@ def load_MD(channel_width, bin_area, dia,dir):
             delta,
             usemask = False)
     return md_data
-
-    # # Accessing Kn directly from the master dict
-    # current_kn = md_data[(0.5, 2000)]['kn']
-
-    # # Accessing the property array
-    # current_array = md_data[(0.5, 2000)]['props']

@@ -8,7 +8,7 @@ import os
 def plot_y(md_data, dsmc_data, nccr_data, md_plot_key, dsmc_plot_key, var_vs_y, dimflag, ylabel, title):
     #plot all profiles vs y for md and dsmc
     plt.figure(figsize=(8, 6))
-    md_var, dsmc_var = var_vs_y
+    md_var, dsmc_var, nccr_var, nsf_var = var_vs_y
     marks = ['.', 'o', 'v', '^', '<', '>', '1', '2', '3', '4', '8', 's', 
     'p', 'P', '*', 'h', 'H', '+', 'x', 'X', 'D', 'd', '|', '_']
     tick_md = 0
@@ -26,6 +26,20 @@ def plot_y(md_data, dsmc_data, nccr_data, md_plot_key, dsmc_plot_key, var_vs_y, 
                  dsmc_data[(mach, kn)][f'{dimflag}'][f'{dsmc_var}'],
                  ls = '-.', marker = marks[tick_dsmc],label=f'DSMC M={mach} Kn = {kn}', ms = 4)
         tick_dsmc += 1
+    tick_nccr = 0
+    for (mach, kn) in nccr_plot_key:
+        # NCCR data
+        plt.plot(nccr_data[(mach, kn)][f'{dimflag}']['y'], 
+                 nccr_data[(mach, kn)][f'{dimflag}'][f'{nccr_var}'],
+                 ls = '--', marker = marks[tick_nccr],label=f'NCCR M={mach} Kn = {kn}', ms = 4)
+        tick_nccr += 1
+    tick_nsf = 0
+    for (mach, kn) in nsf_plot_key:
+        # NSF data
+        plt.plot(nsf_data[(mach, kn)][f'{dimflag}']['y'], 
+                 nsf_data[(mach, kn)][f'{dimflag}'][f'{nsf_var}'],
+                 ls = '-.', marker = marks[tick_nsf],label=f'NSF M={mach} Kn = {kn}', ms = 4)
+        tick_nsf += 1
     plt.xlabel('y')
     plt.xlim(-0.48,0.48)
     plt.ylabel(f'{ylabel}')

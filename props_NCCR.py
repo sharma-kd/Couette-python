@@ -5,8 +5,12 @@ def load_NSF_NCCR(nccr_dir):
     dir = nccr_dir
     nccr_files = dir.glob('NCCR_*')
     nsf_files = dir.glob('NSF_*')
+    ### NCCR
     # vex,del2,tw2,t0w2,tsw2,slp02,slps2,uvs2,strs2,stny,-2.*stny,qys2,qxs2 : line 1
     # s*, y*, uy*, T*, Qy*, Qx*, Pixy*, Piyy*, Pixx* : rest of the lines
+    ### NSF
+    # vex,del2,tw2,t0w2,tsw2,slp02,slps2,uvs2,strs2,stny,-2.*stny,qys2,qxs
+    # s*,y*,uy*,T*,qypv,qxs,strs2,stny,-2.*stny
     nccr_col_names = ['s', 'y', 'u', 'T', 'Qy', 'Qx', 'Pixy', 'Piyy', 'Pixx']
     nsf_col_names = ['s', 'y', 'u', 'T', 'Qy', 'Qx', 'Pixy', 'Piyy', 'Pixx']
     nccr_nd = {}
@@ -26,7 +30,7 @@ def load_NSF_NCCR(nccr_dir):
         a = f.stem.split('_')
         mach = float(a[2])
         kn = float(a[4])
-        nccr_nd[(mach, kn)] = np.genfromtxt(f, skip_header=1, names=nsf_col_names)
+        nsf_nd[(mach, kn)] = np.genfromtxt(f, skip_header=1, names=nsf_col_names)
 
     for key in nccr_nd.keys():
         dudy = np.gradient(nccr_nd[key]['u'], nccr_nd[key]['y'])
